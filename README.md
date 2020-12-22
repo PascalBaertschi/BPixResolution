@@ -1,4 +1,4 @@
-# BPixResolution plot
+# BPixResolution plotting code
 
 Create folders with names file_nice_plots, file_nice_plots/Template, file_nice_plots/Generic.
 
