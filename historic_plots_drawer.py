@@ -52,10 +52,11 @@ class Drawer(object):
             list_points.append(dataPoint(Lumi=self._run_to_intlumi(run), sigma=sigma_vs_run[run][0], sigma_error=sigma_vs_run[run][1]))
         return sorted(list_points, key=attrgetter('Lumi'))
     
-    def clean_history_plot(self, list_points, options = None):
+    def clean_history_plot(self, list_points, list_points_to_clean, options = None):
         new_list_points = list()
         bool_opt = None
-        for point in list_points:
+        for i,point in enumerate(list_points):
+            print("%s - %s"%(point.Lumi, list_points_to_clean[i].Lumi))
             # print("%s +- %s" % (point.sigma, point.sigma_error))
             # bool_opt = None
             # for opt in options:
@@ -66,7 +67,7 @@ class Drawer(object):
             if bool_opt:
                 pass
             else:
-                new_list_points.append(point)
+                new_list_points.append(list_points_to_clean[i])
         return new_list_points
 
     def _latex(self):
@@ -88,13 +89,13 @@ class Drawer(object):
     #             opt_str_split = opt_split.split(':')
     #             new_options[i][opt_str_split[0]] = opt_str_split[1]
             
-    def draw_history_plot(self, sigma_vs_lumi_templ, sigma_vs_lumi_gener, out_file_name, layer_direction, lint_min=0., lint_max=100., sigma_min=0., sigma_ymax=100.):
-        lumi_arr_templ = array('d',[l.Lumi for l in sigma_vs_lumi_templ])
-        sigma_templ_arr = array('d',[l.sigma for l in sigma_vs_lumi_templ])
-        sigma_templ_err_arr = array('d',[l.sigma_error for l in sigma_vs_lumi_templ])
-        lumi_arr_gener = array('d', [l.Lumi for l in sigma_vs_lumi_gener])
-        sigma_gener_arr = array('d',[l.sigma for l in sigma_vs_lumi_gener])
-        sigma_gener_err_arr = array('d',[l.sigma_error for l in sigma_vs_lumi_gener])
+    def draw_history_plot(self, val_vs_lumi_templ, val_vs_lumi_gener, out_file_name, val, layer_direction, lint_min=0., lint_max=100., sigma_min=0., sigma_ymax=100.):
+        lumi_arr_templ = array('d',[l.Lumi for l in val_vs_lumi_templ])
+        val_templ_arr = array('d',[l.sigma for l in val_vs_lumi_templ])
+        val_templ_err_arr = array('d',[l.sigma_error for l in val_vs_lumi_templ])
+        lumi_arr_gener = array('d', [l.Lumi for l in val_vs_lumi_gener])
+        val_gener_arr = array('d',[l.sigma for l in val_vs_lumi_gener])
+        val_gener_err_arr = array('d',[l.sigma_error for l in val_vs_lumi_gener])
         n_empty=100
         # lmin_empty = 0.
         # lmax_empty = 100.
@@ -104,13 +105,13 @@ class Drawer(object):
         empty_hist = rt.TH1D("History plot", "", n_empty, lint_min, lint_max)
         empty_hist.GetYaxis().SetRangeUser(sigma_min,sigma_ymax)
         empty_hist.GetXaxis().SetTitle("L_{int}, fb^{-1}")
-        empty_hist.GetYaxis().SetTitle("#sigma, #mum")
+        empty_hist.GetYaxis().SetTitle("#%s, #mum"%val)
         rt.gStyle.SetOptStat(000000)
         leg = rt.TLegend(0.7, 0.8, 0.9, 0.9)
         n_templ = len(lumi_arr_templ)
         n_gener = len(lumi_arr_gener)
-        tgr_templ = rt.TGraphErrors(n_templ, lumi_arr_templ, sigma_templ_arr, array('d',[0]*n_templ), sigma_templ_err_arr)
-        tgr_gener = rt.TGraphErrors(n_gener, lumi_arr_gener, sigma_gener_arr, array('d',[0]*n_gener), sigma_gener_err_arr)
+        tgr_templ = rt.TGraphErrors(n_templ, lumi_arr_templ, val_templ_arr, array('d',[0]*n_templ), val_templ_err_arr)
+        tgr_gener = rt.TGraphErrors(n_gener, lumi_arr_gener, val_gener_arr, array('d',[0]*n_gener), val_gener_err_arr)
         leg.AddEntry(tgr_templ, "Template")
         leg.AddEntry(tgr_gener, "Generic")
         options_templ = """SetMarkerStyle(8),SetMarkerColor(rt.kRed),SetLineColor(rt.kRed),SetLineWidth(2),SetMarkerSize(0.7)"""

@@ -9,7 +9,7 @@
 #include "TDirectory.h"
 #include "TString.h"
 // #include "LumiMap.h"
-#include "map_byRun_2017_1.h"
+// #include "map_byRun_2017_1.h"
 // TString Run="324245";//"1";
 
 Double_t rej = 6.;
@@ -506,9 +506,9 @@ int fittp0(const char* hs , float & sigma_res,float & sigma_res_err , float & me
     name_png +=(TString) "_"+Run+(TString)"_" +  (TString)"_"+reco+"_tree.png";
     name_eps +=(TString) "_"+Run+(TString)"_" +  (TString)"_"+reco+"_tree.eps" ;
 
-    c->SaveAs((TString)"Test_"+reco+"/"+name);
-    c->SaveAs((TString)"Test_"+reco+"/"+name_png);
-    c->SaveAs((TString)"Test_"+reco+"/"+name_eps);
+    c->SaveAs((TString)"historic_plots/"+reco+"/"+name);
+    c->SaveAs((TString)"historic_plots/"+reco+"/"+name_png);
+    c->SaveAs((TString)"historic_plots/"+reco+"/"+name_eps);
 
     // gPad->Print(name);
     //delete tp0Fcn;
@@ -720,26 +720,26 @@ std::map<int, std::map<TString, float>> FitAndPlot(const char *path, vector<int>
 // vector <Int_t> Runs = {297050, 297056, 297057, 297099, 297100, 297101, 297113, 297114, 297175, 297176, 297177, 297178, 297215, 297218, 297219, 297224, 297225, 297227, 297292, 297293, 297296, 297308, 297359, 297411, 297424, 297425, 297426, 297429, 297430, 297431, 297432, 297433, 297434, 297435, 297467, 297468, 297469, 297483, 297484, 297485, 297486, 297487, 297488, 297503, 297504, 297505, 297557, 297558, 297562, 297563, 297598, 297599, 297603, 297604, 297605, 297606, 297620, 297656, 297665, 297666, 297670, 297674, 297675, 297722, 297723, 298996, 298997, 299000, 299042, 299061, 299062, 299064, 299065, 299067, 299096, 299149, 299178, 299180, 299184, 299185, 299327, 299329};
 void FitAndPlot_tree_bpix_new(TString run, TString reco){
   int Run = run.Atoi();
-  // ofstream file_dx_1, file_dx_2, file_dx_3, file_dx_4, file_dz_1, file_dz_2, file_dz_3, file_dz_4;
+  ofstream file_dx_1, file_dx_2, file_dx_3, file_dx_4, file_dz_1, file_dz_2, file_dz_3, file_dz_4;
   ofstream file_x_1, file_x_2, file_x_3, file_x_4, file_z_1, file_z_2, file_z_3, file_z_4;
 
-  // file_dx_1.open("Test_"+reco+"/"+"dx_1_"+reco+run+".txt", std::ios_base::app);
-  // file_dx_2.open("Test_"+reco+"/"+"dx_2_"+reco+run+".txt", std::ios_base::app);
-  // file_dx_3.open("Test_"+reco+"/"+"dx_3_"+reco+run+".txt", std::ios_base::app);
-  // file_dx_4.open("Test_"+reco+"/"+"dx_4_"+reco+run+".txt", std::ios_base::app);
-  // file_dz_1.open("Test_"+reco+"/"+"dz_1_"+reco+run+".txt", std::ios_base::app);
-  // file_dz_2.open("Test_"+reco+"/"+"dz_2_"+reco+run+".txt", std::ios_base::app);
-  // file_dz_3.open("Test_"+reco+"/"+"dz_3_"+reco+run+".txt", std::ios_base::app);
-  // file_dz_4.open("Test_"+reco+"/"+"dz_4_"+reco+run+".txt", std::ios_base::app);
+  file_dx_1.open("historic_plots/"+reco+"/"+"dx_1_"+reco+run+".txt", std::ios_base::app);
+  file_dx_2.open("historic_plots/"+reco+"/"+"dx_2_"+reco+run+".txt", std::ios_base::app);
+  file_dx_3.open("historic_plots/"+reco+"/"+"dx_3_"+reco+run+".txt", std::ios_base::app);
+  file_dx_4.open("historic_plots/"+reco+"/"+"dx_4_"+reco+run+".txt", std::ios_base::app);
+  file_dz_1.open("historic_plots/"+reco+"/"+"dz_1_"+reco+run+".txt", std::ios_base::app);
+  file_dz_2.open("historic_plots/"+reco+"/"+"dz_2_"+reco+run+".txt", std::ios_base::app);
+  file_dz_3.open("historic_plots/"+reco+"/"+"dz_3_"+reco+run+".txt", std::ios_base::app);
+  file_dz_4.open("historic_plots/"+reco+"/"+"dz_4_"+reco+run+".txt", std::ios_base::app);
 
-  file_x_1.open("Test_"+reco+"/"+"x_1_"+reco+run+".txt", std::ios_base::app);
-  file_x_2.open("Test_"+reco+"/"+"x_2_"+reco+run+".txt", std::ios_base::app);
-  file_x_3.open("Test_"+reco+"/"+"x_3_"+reco+run+".txt", std::ios_base::app);
-  file_x_4.open("Test_"+reco+"/"+"x_4_"+reco+run+".txt", std::ios_base::app);
-  file_z_1.open("Test_"+reco+"/"+"z_1_"+reco+run+".txt", std::ios_base::app);
-  file_z_2.open("Test_"+reco+"/"+"z_2_"+reco+run+".txt", std::ios_base::app);
-  file_z_3.open("Test_"+reco+"/"+"z_3_"+reco+run+".txt", std::ios_base::app);
-  file_z_4.open("Test_"+reco+"/"+"z_4_"+reco+run+".txt", std::ios_base::app);
+  file_x_1.open("historic_plots/"+reco+"/"+"x_1_"+reco+run+".txt", std::ios_base::app);
+  file_x_2.open("historic_plots/"+reco+"/"+"x_2_"+reco+run+".txt", std::ios_base::app);
+  file_x_3.open("historic_plots/"+reco+"/"+"x_3_"+reco+run+".txt", std::ios_base::app);
+  file_x_4.open("historic_plots/"+reco+"/"+"x_4_"+reco+run+".txt", std::ios_base::app);
+  file_z_1.open("historic_plots/"+reco+"/"+"z_1_"+reco+run+".txt", std::ios_base::app);
+  file_z_2.open("historic_plots/"+reco+"/"+"z_2_"+reco+run+".txt", std::ios_base::app);
+  file_z_3.open("historic_plots/"+reco+"/"+"z_3_"+reco+run+".txt", std::ios_base::app);
+  file_z_4.open("historic_plots/"+reco+"/"+"z_4_"+reco+run+".txt", std::ios_base::app);
 
   std::map<int, std::map<TString, float>> outmap;
 
@@ -839,14 +839,14 @@ void FitAndPlot_tree_bpix_new(TString run, TString reco){
   std::map<TString, float> outmaprun;
   for(auto const& Run: Run_map[run]){
     outmaprun = outmap[Run];
-    // file_dx_1 << Run << "\t" << outmaprun[TString("sigma_x1")] << "\t" <<  outmaprun[TString("sigma_x1_err")] << endl;
-    // file_dx_2 << Run << "\t" << outmaprun[TString("sigma_x2")] << "\t" <<  outmaprun[TString("sigma_x2_err")] << endl;
-    // file_dx_3 << Run << "\t" << outmaprun[TString("sigma_x3")] << "\t" <<  outmaprun[TString("sigma_x3_err")] << endl;
-    // file_dx_4 << Run << "\t" << outmaprun[TString("sigma_x4")] << "\t" <<  outmaprun[TString("sigma_x4_err")] << endl;
-    // file_dz_1 << Run << "\t" << outmaprun[TString("sigma_z1")] << "\t" <<  outmaprun[TString("sigma_z1_err")] << endl;
-    // file_dz_2 << Run << "\t" << outmaprun[TString("sigma_z2")] << "\t" <<  outmaprun[TString("sigma_z2_err")] << endl;
-    // file_dz_3 << Run << "\t" << outmaprun[TString("sigma_z3")] << "\t" <<  outmaprun[TString("sigma_z3_err")] << endl;
-    // file_dz_4 << Run << "\t" << outmaprun[TString("sigma_z4")] << "\t" <<  outmaprun[TString("sigma_z4_err")] << endl;
+    file_dx_1 << Run << "\t" << outmaprun[TString("sigma_x1")] << "\t" <<  outmaprun[TString("sigma_x1_err")] << endl;
+    file_dx_2 << Run << "\t" << outmaprun[TString("sigma_x2")] << "\t" <<  outmaprun[TString("sigma_x2_err")] << endl;
+    file_dx_3 << Run << "\t" << outmaprun[TString("sigma_x3")] << "\t" <<  outmaprun[TString("sigma_x3_err")] << endl;
+    file_dx_4 << Run << "\t" << outmaprun[TString("sigma_x4")] << "\t" <<  outmaprun[TString("sigma_x4_err")] << endl;
+    file_dz_1 << Run << "\t" << outmaprun[TString("sigma_z1")] << "\t" <<  outmaprun[TString("sigma_z1_err")] << endl;
+    file_dz_2 << Run << "\t" << outmaprun[TString("sigma_z2")] << "\t" <<  outmaprun[TString("sigma_z2_err")] << endl;
+    file_dz_3 << Run << "\t" << outmaprun[TString("sigma_z3")] << "\t" <<  outmaprun[TString("sigma_z3_err")] << endl;
+    file_dz_4 << Run << "\t" << outmaprun[TString("sigma_z4")] << "\t" <<  outmaprun[TString("sigma_z4_err")] << endl;
     
     file_x_1 << Run << "\t" << outmaprun[TString("mean_x1")] << "\t" <<  outmaprun[TString("mean_x1_err")] << endl;
     file_x_2 << Run << "\t" << outmaprun[TString("mean_x2")] << "\t" <<  outmaprun[TString("mean_x2_err")] << endl;
@@ -859,14 +859,14 @@ void FitAndPlot_tree_bpix_new(TString run, TString reco){
   }
   // }
   // cout << "3" << endl;
-  // file_dx_1.close();
-  // file_dx_2.close();
-  // file_dx_3.close();
-  // file_dx_4.close();
-  // file_dz_1.close();
-  // file_dz_2.close();
-  // file_dz_3.close();
-  // file_dz_4.close();
+  file_dx_1.close();
+  file_dx_2.close();
+  file_dx_3.close();
+  file_dx_4.close();
+  file_dz_1.close();
+  file_dz_2.close();
+  file_dz_3.close();
+  file_dz_4.close();
 
   file_x_1.close();
   file_x_2.close();
